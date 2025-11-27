@@ -260,7 +260,16 @@ window.Framework = {
             const newScript = document.createElement('script');
             Array.from(oldScript.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value));
             newScript.appendChild(document.createTextNode(oldScript.innerHTML));
-            oldScript.parentNode.replaceChild(newScript, oldScript);
+            
+            // Execute by appending to head
+            document.head.appendChild(newScript);
+            
+            // Cleanup: Remove from head after execution (optional, but keeps DOM clean)
+            // Note: Script still runs even if removed immediately after append in most browsers
+            document.head.removeChild(newScript);
+            
+            // Remove the original script tag from the container so it doesn't show in the page
+            oldScript.remove();
         });
     }
 };
