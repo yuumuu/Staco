@@ -1,5 +1,25 @@
 // Core UI utilities for StarterCode (skeleton loader, simple cache, connection helpers)
 // This file contains framework-level UI helpers that should be available to all pages.
+//
+// SKELETON LOADER USAGE:
+// ----------------------
+// Skeleton is NOT auto-loaded. You must use it manually in your components.
+// 
+// Example with Alpine.js:
+//   <div x-data="{ loading: true }">
+//     <template x-if="loading">
+//       <div x-html="Skeleton.grid(3, 3)"></div>
+//     </template>
+//     <template x-if="!loading">
+//       <!-- actual content -->
+//     </template>
+//   </div>
+//
+// When to use Skeleton vs Loader:
+// - Skeleton: for data lists/grids with clear structure (>500ms load)
+// - Loader (spinner): for quick actions, page nav, unstructured content
+//
+// See docs/SKELETON.md for complete documentation.
 window.CoreUI = (function () {
   // --- Skeleton Loader ---
   const Skeleton = {
@@ -68,6 +88,8 @@ window.CoreUI = (function () {
   );
 
   // --- Render override helper ---
+  // This override adds scroll observer re-initialization after page renders.
+  // NOTE: Skeleton is NOT auto-loaded here. Use it manually in your components.
   function installRenderOverride(Framework) {
     if (!Framework || !Framework.render || Framework.__sc_render_installed)
       return;
@@ -75,13 +97,6 @@ window.CoreUI = (function () {
     const original = Framework.render.bind(Framework);
 
     Framework.render = async function (componentPath, targetId) {
-      const target = document.getElementById(targetId);
-      if (target) {
-        // show a small skeleton immediately
-        try {
-          target.innerHTML = Skeleton.grid(2, 2);
-        } catch (e) {}
-      }
       // Wait for original render to complete
       const result = await original(componentPath, targetId);
 

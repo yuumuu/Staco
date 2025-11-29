@@ -8,11 +8,14 @@ here; project-specific customizations belong in `assets/`.
 
 `window.CoreUI` — main namespace. Contains:
 
-- `CoreUI.Skeleton` — helper to generate lightweight HTML skeletons.
+- `CoreUI.Skeleton` — helper to generate lightweight HTML skeletons for loading states.
 
   - `Skeleton.text(lines = 1)` → string (one or more skeleton text lines)
   - `Skeleton.avatar()` → string (avatar placeholder)
   - `Skeleton.grid(count = 3, columns = 3)` → string (grid of skeleton cards)
+  
+  **Note:** Skeleton is NOT auto-loaded. You must use it manually in your components.
+  See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for full documentation.
 
 - `CoreUI.Cache` — simple localStorage cache with TTL.
 
@@ -31,14 +34,35 @@ For backward compatibility the following globals are provided:
 
 ## Usage Examples
 
-Render a skeleton into an element while loading a page/component:
+### Skeleton Loader (Manual Usage)
+
+Use skeleton in Alpine.js components for better loading UX:
 
 ```html
-<div id="router-view"></div>
-<script>
-  document.getElementById("router-view").innerHTML = CoreUI.Skeleton.grid(3, 3);
-</script>
+<div x-data="collection('data/users.json')">
+  <!-- Show skeleton while loading -->
+  <template x-if="loading">
+    <div x-html="Skeleton.grid(3, 3)"></div>
+  </template>
+  
+  <!-- Show actual content when loaded -->
+  <template x-if="!loading">
+    <div class="grid grid-cols-3 gap-6">
+      <template x-for="user in items" :key="user.id">
+        <div class="card">
+          <h3 x-text="user.name"></h3>
+        </div>
+      </template>
+    </div>
+  </template>
+</div>
 ```
+
+**When to use Skeleton vs Loader:**
+- Use Skeleton for: data lists, grids, structured content (>500ms load time)
+- Use Loader (spinner) for: quick actions, page navigation, unstructured content
+
+See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for complete guide.
 
 Cache example:
 

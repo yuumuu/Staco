@@ -31,6 +31,8 @@
                 <h2 class="text-2xl font-bold mb-4 text-gray-400">Legacy Data Loading (Manual)</h2>
 
                 <!-- Skeleton Loading State -->
+                <!-- NOTE: Skeleton is used MANUALLY here, not auto-loaded -->
+                <!-- See docs/SKELETON.md for usage guide -->
                 <template x-if="loading">
                     <div x-html="Skeleton.grid(3, 3)"></div>
                 </template>
@@ -67,6 +69,8 @@
                      })">
 
                     <!-- Skeleton Loading State -->
+                    <!-- NOTE: Skeleton is used MANUALLY with collection() helper -->
+                    <!-- This demonstrates best practice for data loading UX -->
                     <template x-if="loading">
                         <div x-html="Skeleton.grid(3, 3)"></div>
                     </template>
