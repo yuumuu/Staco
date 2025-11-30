@@ -18,20 +18,16 @@
   function onIntersect(entries) {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        // Add animate class
+        // Add animate class when element enters viewport
         entry.target.classList.add('aos-animate');
         if (DEBUG) console.log('AOS: Animating element', entry.target);
-        
-        // Stop observing if data-aos-once is not false
-        const once = entry.target.dataset.aosOnce;
-        if (once !== 'false') {
-          observer.unobserve(entry.target);
-        }
       } else {
-        // Remove animate class if data-aos-once="false"
+        // Remove animate class when element leaves viewport (for repeat animation)
+        // Only keep animation if data-aos-once="true"
         const once = entry.target.dataset.aosOnce;
-        if (once === 'false') {
+        if (once !== 'true') {
           entry.target.classList.remove('aos-animate');
+          if (DEBUG) console.log('AOS: Removing animation from element', entry.target);
         }
       }
     });
@@ -64,10 +60,6 @@
     if (DEBUG) console.log('AOS: Found', elements.length, 'elements to animate');
     
     elements.forEach(el => {
-      // Skip if already animated and once=true
-      if (el.classList.contains('aos-animate') && el.dataset.aosOnce !== 'false') {
-        return;
-      }
       observer.observe(el);
       if (DEBUG) console.log('AOS: Observing', el);
     });

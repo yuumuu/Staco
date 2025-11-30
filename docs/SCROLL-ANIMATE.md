@@ -18,6 +18,13 @@ Cukup tambahkan class `aos-*` ke elemen HTML:
 <div class="aos-slide-left">Slide from right</div>
 ```
 
+**Default Behavior:** Animasi akan **berulang setiap kali scroll** - muncul saat elemen masuk viewport, hilang saat keluar viewport.
+
+**Animasi Sekali Saja:** Jika Anda ingin animasi hanya muncul sekali, tambahkan `data-aos-once="true"`:
+```html
+<div class="aos-fade-up" data-aos-once="true">Only animate once</div>
+```
+
 ## Available Animations
 
 ### Fade Animations
