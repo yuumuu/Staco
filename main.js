@@ -4,6 +4,14 @@ document.addEventListener('alpine:init', () => {
         init() {
             console.log('App Initialized');
             Router.init(routes);
+            
+            // Initialize scroll animations after router is ready
+            setTimeout(() => {
+                if (window.AOS) {
+                    console.log('Initializing AOS from main.js');
+                    window.AOS.init();
+                }
+            }, 200);
         }
     }));
 });

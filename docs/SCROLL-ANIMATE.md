@@ -1,11 +1,12 @@
-# Pure CSS Scroll Animations (AOS)
+# Hybrid CSS+JS Scroll Animations (AOS)
 
-StarterCode sekarang menggunakan **Pure CSS Scroll Animations** tanpa JavaScript, menggunakan CSS `animation-timeline: view()` API yang modern.
+StarterCode menggunakan **Hybrid Scroll Animations** - CSS transitions dengan JavaScript trigger ringan menggunakan IntersectionObserver untuk kompatibilitas maksimal dengan semua browser termasuk Zen Browser.
 
 ## File
 
-- **CSS:** `assets/css/scroll-animate-css.css`
-- **Archived (old):** `assets/archive/scroll-animate.js.old` dan `scroll-animate.css.old`
+- **CSS:** `assets/css/scroll-animate-css.css` - Transitions & initial states
+- **JS:** `assets/js/scroll-animate.js` - Lightweight IntersectionObserver trigger
+- **Archived (old):** `assets/archive/scroll-animate.*.old` - Pure CSS version
 
 ## Usage
 
@@ -69,11 +70,14 @@ Cukup tambahkan class `aos-*` ke elemen HTML:
 **Modern Browsers (dengan animasi):**
 - ✅ Chrome/Edge 115+
 - ✅ Safari 17.4+
-- ✅ Firefox 114+ (dengan flag)
+- ✅ Firefox 114+
+- ✅ **Zen Browser** (Firefox-based) - Fully supported!
 
 **Legacy Browsers (fallback):**
 - ❌ Browser lama akan menampilkan elemen langsung tanpa animasi
 - Tidak ada error, hanya tidak ada animasi
+
+> **Note for Firefox/Zen Browser:** The CSS includes `animation-duration: 1ms` which is required for `animation-timeline: view()` to work properly in Firefox-based browsers.
 
 ## Accessibility
 

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AOS Test Page</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assets/css/scroll-animate-css.css">
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto px-4 py-12">
+        <h1 class="text-4xl font-bold mb-8 text-center">Scroll Animation Test</h1>
+
+        <div class="space-y-12">
+            <!-- Test 1: Fade Up -->
+            <div class="bg-white p-8 rounded-lg shadow aos-fade-up">
+                <h2 class="text-2xl font-bold mb-2">Fade Up Animation</h2>
+                <p class="text-gray-600">This should fade in from bottom to top</p>
+            </div>
+
+            <!-- Test 2: Fade Left -->
+            <div class="bg-blue-100 p-8 rounded-lg shadow aos-fade-left">
+                <h2 class="text-2xl font-bold mb-2">Fade Left Animation</h2>
+                <p class="text-gray-600">This should fade in from right to left</p>
+            </div>
+
+            <!-- Test 3: Fade Right -->
+            <div class="bg-green-100 p-8 rounded-lg shadow aos-fade-right">
+                <h2 class="text-2xl font-bold mb-2">Fade Right Animation</h2>
+                <p class="text-gray-600">This should fade in from left to right</p>
+            </div>
+
+            <!-- Test 4: Zoom -->
+            <div class="bg-purple-100 p-8 rounded-lg shadow aos-zoom">
+                <h2 class="text-2xl font-bold mb-2">Zoom Animation</h2>
+                <p class="text-gray-600">This should zoom in</p>
+            </div>
+
+            <!-- Test 5: Slide Up -->
+            <div class="bg-yellow-100 p-8 rounded-lg shadow aos-slide-up">
+                <h2 class="text-2xl font-bold mb-2">Slide Up Animation</h2>
+                <p class="text-gray-600">This should slide up from bottom</p>
+            </div>
+
+            <!-- Test 6: Bounce In -->
+            <div class="bg-pink-100 p-8 rounded-lg shadow aos-bounce-in">
+                <h2 class="text-2xl font-bold mb-2">Bounce In Animation</h2>
+                <p class="text-gray-600">This should bounce in</p>
+            </div>
+
+            <!-- Spacer for scrolling -->
+            <div class="h-96"></div>
+        </div>
+    </div>
+
+    <script src="assets/js/scroll-animate.js"></script>
+
+    <script>
+        // Debug info
+        console.log('Test page loaded');
+        console.log('AOS object:', window.AOS);
+
+        // Check if elements are found
+        setTimeout(() => {
+            const elements = document.querySelectorAll('[class*="aos-"]');
+            console.log('Found', elements.length, 'elements with aos- classes');
+            elements.forEach((el, i) => {
+                console.log(`Element ${i}:`, el.className, 'Has aos-animate:', el.classList.contains('aos-animate'));
+            });
+        }, 500);
+    </script>
+</body>
+
+</html>
