@@ -107,24 +107,138 @@ Or morphdom (CDN):
 ```html
 <script src="https://unpkg.com/morphdom@2.6.1/dist/morphdom-umd.min.js"></script>
 ```
+```
+# Core UI (StarterCode)
+
+This folder contains framework-level utilities that are intended to be stable and
+available to all projects using this StarterCode. Keep system-level UI helpers
+here; project-specific customizations belong in `assets/`.
+
+## Exported API
+
+`window.CoreUI` — main namespace. Contains:
+
+- `CoreUI.Skeleton` — helper to generate lightweight HTML skeletons for loading states.
+
+  - `Skeleton.text(lines = 1)` → string (one or more skeleton text lines)
+  - `Skeleton.avatar()` → string (avatar placeholder)
+  - `Skeleton.grid(count = 3, columns = 3)` → string (grid of skeleton cards)
+  
+  **Note:** Skeleton is NOT auto-loaded. You must use it manually in your components.
+  See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for full documentation.
+
+- `CoreUI.Cache` — simple localStorage cache with TTL.
+
+  - `Cache.set(key, value, ttlMinutes = 30)`
+  - `Cache.get(key)`
+  - `Cache.clear()`
+
+- `CoreUI.isSlow` — boolean flag indicating if the connection appears slow (3G-ish).
+
+### Global legacy aliases
+
+For backward compatibility the following globals are provided:
+
+- `window.Skeleton` → `CoreUI.Skeleton`
+- `window.CacheManager` → `CoreUI.Cache`
+
+## Usage Examples
+
+### Skeleton Loader (Manual Usage)
+
+Use skeleton in Alpine.js components for better loading UX:
+
+```html
+<div x-data="collection('data/users.json')">
+  <!-- Show skeleton while loading -->
+  <template x-if="loading">
+    <div x-html="Skeleton.grid(3, 3)"></div>
+  </template>
+  
+  <!-- Show actual content when loaded -->
+  <template x-if="!loading">
+    <div class="grid grid-cols-3 gap-6">
+      <template x-for="user in items" :key="user.id">
+        <div class="card">
+          <h3 x-text="user.name"></h3>
+        </div>
+      </template>
+    </div>
+  </template>
+</div>
+```
+
+**When to use Skeleton vs Loader:**
+- Use Skeleton for: data lists, grids, structured content (>500ms load time)
+- Use Loader (spinner) for: quick actions, page navigation, unstructured content
+
+See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for complete guide.
+
+Cache example:
+
+```js
+const cached = CoreUI.Cache.get("users_v1");
+if (!cached) {
+  fetch("data/users.json")
+    .then((r) => r.json())
+    .then((data) => {
+      CoreUI.Cache.set("users_v1", data, 60); // cache 60 minutes
+    });
+}
+```
+
+## Notes for maintainers
+
+- `core/ui.js` attempts to install a render-override into the app's `Framework`
+  if `Framework.render` is available. If the `Framework` script loads later,
+  `core/ui.js` polls briefly (5s) and will install when it appears.
+- Keep code in `core/` minimal and framework-focused. Project-specific features
+  should live in `assets/` so they are easy for new developers to edit.
+
+## Enabling morph-based updates (optional, recommended)
+
+`CoreUI.morph(target, html)` will try to reconcile the new HTML into `target`
+using the best available method:
+
+- `Alpine.morph` (if `@alpinejs/morph` is loaded)
+- `morphdom` (if loaded via CDN)
+- fallback to `innerHTML` (always available)
+
+To enable automatic better updates, add one of these scripts to `index.html` **before** `core/ui.js` or before `main.js`:
+
+Alpine morph (CDN):
+
+```html
+<script src="https://unpkg.com/@alpinejs/morph@latest/dist/cdn.min.js"></script>
+```
+
+Or morphdom (CDN):
+
+```html
+<script src="https://unpkg.com/morphdom@2.6.1/dist/morphdom-umd.min.js"></script>
+```
 
 When either is present, `Framework.render` (which uses CoreUI.morph) will
 preserve Alpine component instances and give much smoother transitions.
 
 ## Lightweight on-scroll animations (AOS)
 
-StarterCode provides a tiny on-scroll animation helper in `assets/js/scroll-animate.js` and styles in `assets/css/scroll-animate.css`.
+**File:** `assets/js/scroll-animate.js`
 
-Usage:
+A minimal IntersectionObserver-based scroll animation helper. Add `data-animate="fade-up"` (or other variants) to elements. The script will automatically observe them and apply the `in-view` class when they enter the viewport.
 
-```html
-<div data-animate="fade-up">Reveal on scroll</div>
-<div data-animate="zoom" data-once="false">Animate each time it enters</div>
+**Variants:**
+- `fade-up` (default)
+- `fade-left`
+- `fade-right`
+- `zoom`
+
+**Options:**
+- `data-once="false"` to allow repeated animations when element re-enters viewport.
+
+**CSS:**
+Defined in `assets/css/scroll-animate.css`. Animations are lightweight and respect `prefers-reduced-motion`.
+
+**Reinit:**
+After route changes or DOM morphs, call `ScrollObserver.reinit()` to re-observe new elements.
 ```
-
-The helper uses `IntersectionObserver` and adds classes:
-
-- `animate-init` + `animate-<name>` initially
-- `in-view` when the element enters viewport
-
-Styles are in `assets/css/scroll-animate.css` and can be customized or replaced by a library later.

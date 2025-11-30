@@ -4,6 +4,6 @@ const routes = [
   { path: "/docs", component: "app/pages/docs.html" },
   // { path: '/divisions', component: 'app/pages/divisions/index.html' },
   // { path: '/division/:slug', component: 'app/pages/divisions/detail.html' },
-  // { path: '/users', component: 'app/pages/users/index.html' }, // ARCHIVED to app/pages/archive/divisions/users/
+  // { path: '/users', component: 'app/pages/users/index.html' },
   { path: "/404", component: "app/pages/errors/404.html" },
 ];

@@ -1,0 +1,336 @@
+/* ============================================
+   Pure CSS Scroll Animations
+   Using animation-timeline: view() API
+   No JavaScript required!
+   ============================================ */
+
+/* ============================================
+   KEYFRAMES DEFINITIONS
+   ============================================ */
+
+/* Fade Animations */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-left {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-right {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Zoom Animations */
+@keyframes zoom {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoom-out {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Slide Animations */
+@keyframes slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-right {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Flip Animations */
+@keyframes flip-up {
+  from {
+    opacity: 0;
+    transform: perspective(400px) rotateX(80deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0);
+  }
+}
+
+@keyframes flip-down {
+  from {
+    opacity: 0;
+    transform: perspective(400px) rotateX(-80deg);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(400px) rotateX(0);
+  }
+}
+
+/* Rotate Animation */
+@keyframes rotate-in {
+  from {
+    opacity: 0;
+    transform: rotate(-180deg) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+/* Bounce Animation */
+@keyframes bounce-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.3) translateY(30px);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ============================================
+   ANIMATION CLASSES
+   Apply these classes to elements
+   ============================================ */
+
+/* Fade Animations */
+.aos-fade-up {
+  animation: fade-up linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-fade-down {
+  animation: fade-down linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-fade-left {
+  animation: fade-left linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-fade-right {
+  animation: fade-right linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* Zoom Animations */
+.aos-zoom {
+  animation: zoom linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-zoom-out {
+  animation: zoom-out linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* Slide Animations */
+.aos-slide-up {
+  animation: slide-up linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-slide-down {
+  animation: slide-down linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-slide-left {
+  animation: slide-left linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-slide-right {
+  animation: slide-right linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* Flip Animations */
+.aos-flip-up {
+  animation: flip-up linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+.aos-flip-down {
+  animation: flip-down linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* Rotate Animation */
+.aos-rotate-in {
+  animation: rotate-in linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* Bounce Animation */
+.aos-bounce-in {
+  animation: bounce-in linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
+}
+
+/* ============================================
+   ANIMATION DURATION MODIFIERS
+   Add these classes for custom durations
+   ============================================ */
+
+.aos-duration-slow {
+  animation-range: entry 0% cover 60% !important;
+}
+
+.aos-duration-fast {
+  animation-range: entry 0% cover 25% !important;
+}
+
+/* ============================================
+   ANIMATION DELAY MODIFIERS
+   Add these classes for delayed animations
+   ============================================ */
+
+.aos-delay-100 {
+  animation-delay: 100ms;
+}
+
+.aos-delay-200 {
+  animation-delay: 200ms;
+}
+
+.aos-delay-300 {
+  animation-delay: 300ms;
+}
+
+.aos-delay-400 {
+  animation-delay: 400ms;
+}
+
+.aos-delay-500 {
+  animation-delay: 500ms;
+}
+
+/* ============================================
+   ACCESSIBILITY
+   Respect user's motion preferences
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+  [class*="aos-"] {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
+/* ============================================
+   BROWSER FALLBACK
+   For browsers that don't support animation-timeline
+   ============================================ */
+
+@supports not (animation-timeline: view()) {
+  [class*="aos-"] {
+    /* Fallback: elements are immediately visible */
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
+}
