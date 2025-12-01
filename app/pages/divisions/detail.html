@@ -1,0 +1,145 @@
+\u003clayout name="main"\u003e
+\u003cslot name="header"\u003e
+\u003cdiv class="container mx-auto px-4"\u003e
+\u003cinclude src="app/components/navbar.html"\u003e\u003c/include\u003e
+\u003c/div\u003e
+\u003c/slot\u003e
+
+\u003cslot name="content"\u003e
+\u003cdiv class="container mx-auto px-4 py-8"\u003e
+
+\u003c!-- Banner Section --\u003e
+\u003cdiv x-data="$controller('DivisionController').detail" x-cloak\u003e
+
+\u003c!-- Loading State --\u003e
+\u003ctemplate x-if="loading"\u003e
+\u003cdiv class="text-center py-12"\u003e
+\u003cdiv class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"\u003e
+\u003c/div\u003e
+\u003cp class="mt-4 text-gray-600"\u003eLoading division...\u003c/p\u003e
+\u003c/div\u003e
+\u003c/template\u003e
+
+\u003c!-- Error State --\u003e
+\u003ctemplate x-if="error"\u003e
+\u003cdiv class="bg-red-50 border border-red-200 rounded-lg p-6 text-center"\u003e
+\u003cp class="text-red-600" x-text="error"\u003e\u003c/p\u003e
+\u003ca href="#/" class="mt-4 inline-block text-blue-600 hover:underline"\u003e← Kembali ke
+Home\u003c/a\u003e
+\u003c/div\u003e
+\u003c/template\u003e
+
+\u003c!-- Content --\u003e
+\u003ctemplate x-if="!loading && !error && item"\u003e
+\u003cdiv\u003e
+\u003c!-- Banner --\u003e
+\u003cdiv class="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-8 mb-8 aos-fade-up"\u003e
+\u003cdiv class="flex items-center gap-4 mb-4"\u003e
+\u003cspan class="text-6xl" x-text="item.icon"\u003e\u003c/span\u003e
+\u003cdiv\u003e
+\u003ch1 class="text-4xl font-bold" x-text="item.name"\u003e\u003c/h1\u003e
+\u003cp class="text-gray-600 mt-2" x-text="item.description"\u003e\u003c/p\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+
+\u003c!-- Stats --\u003e
+\u003cdiv class="flex gap-6 mt-6"\u003e
+\u003cdiv class="bg-white rounded-lg px-4 py-2 shadow-sm"\u003e
+\u003cspan class="text-2xl font-bold" x-text="item.members.length"\u003e\u003c/span\u003e
+\u003cspan class="text-gray-600 ml-2"\u003eAnggota\u003c/span\u003e
+\u003c/div\u003e
+\u003cdiv class="bg-white rounded-lg px-4 py-2 shadow-sm"\u003e
+\u003cspan class="text-2xl font-bold" x-text="item.programs.length"\u003e\u003c/span\u003e
+\u003cspan class="text-gray-600 ml-2"\u003eProgram\u003c/span\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+
+\u003c!-- Programs Section --\u003e
+\u003cdiv class="mb-12 aos-fade-up"\u003e
+\u003ch2 class="text-2xl font-bold mb-6"\u003eProgram Kerja\u003c/h2\u003e
+
+\u003ctemplate x-if="item.programs.length === 0"\u003e
+\u003cp class="text-gray-500 text-center py-8"\u003eBelum ada program kerja\u003c/p\u003e
+\u003c/template\u003e
+
+\u003cdiv class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"\u003e
+\u003ctemplate x-for="program in item.programs" :key="program.program_id"\u003e
+\u003cdiv class="bg-white rounded-lg shadow-md p-6 hover:shadow-xl transition"\u003e
+\u003c!-- Icon & Title --\u003e
+\u003cdiv class="flex items-start gap-3 mb-3"\u003e
+\u003cspan class="text-3xl" x-text="program.icon"\u003e\u003c/span\u003e
+\u003cdiv class="flex-1"\u003e
+\u003ch3 class="font-bold text-lg" x-text="program.title"\u003e\u003c/h3\u003e
+\u003cspan class="inline-block px-2 py-1 rounded text-xs mt-1"
+:class="program.statusClass"
+x-text="program.status"\u003e\u003c/span\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+
+\u003c!-- Description --\u003e
+\u003cp class="text-gray-600 text-sm mb-3 line-clamp-3" x-text="program.description"\u003e
+\u003c/p\u003e
+
+\u003c!-- PIC & Date --\u003e
+\u003cdiv class="text-sm text-gray-500 space-y-1"\u003e
+\u003cdiv\u003e
+\u003cspan class="font-semibold"\u003ePIC:\u003c/span\u003e
+\u003cspan x-text="program.pic"\u003e\u003c/span\u003e
+\u003c/div\u003e
+\u003cdiv x-show="program.dateRange"\u003e
+\u003cspan class="font-semibold"\u003eTanggal:\u003c/span\u003e
+\u003cspan x-text="program.dateRange"\u003e\u003c/span\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/template\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+
+\u003c!-- Members Section --\u003e
+\u003cdiv class="aos-fade-up"\u003e
+\u003ch2 class="text-2xl font-bold mb-6"\u003eAnggota Divisi\u003c/h2\u003e
+
+\u003ctemplate x-if="item.members.length === 0"\u003e
+\u003cp class="text-gray-500 text-center py-8"\u003eBelum ada anggota\u003c/p\u003e
+\u003c/template\u003e
+
+\u003cdiv class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6"\u003e
+\u003ctemplate x-for="member in item.members" :key="member.member_id"\u003e
+\u003cdiv
+class="bg-white rounded-lg shadow-md p-4 text-center hover:shadow-xl transition"\u003e
+\u003c!-- Photo --\u003e
+\u003cdiv class="w-24 h-24 mx-auto mb-3 rounded-full bg-gray-200 overflow-hidden"\u003e
+\u003cimg :src="member.photoUrl" :alt="member.name"
+class="w-full h-full object-cover"
+@error="$el.src='/media/members/default.jpg'"\u003e
+\u003c/div\u003e
+
+\u003c!-- Name & Position --\u003e
+\u003ch3 class="font-bold text-sm mb-1" x-text="member.name"\u003e\u003c/h3\u003e
+\u003cp class="text-xs text-gray-600 mb-2" x-text="member.position"\u003e\u003c/p\u003e
+
+\u003c!-- Instagram --\u003e
+\u003ca :href="member.instagramUrl"
+target="_blank" class="text-xs text-blue-600 hover:underline"
+x-text="member.instagram"\u003e\u003c/a\u003e
+\u003c/div\u003e
+\u003c/template\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+
+\u003c!-- Back Button --\u003e
+\u003cdiv class="mt-12 text-center"\u003e
+\u003ca href="#/"
+class="inline-block px-6 py-3 bg-gray-200 hover:bg-gray-300 rounded-lg transition"\u003e
+← Kembali ke Home
+\u003c/a\u003e
+\u003c/div\u003e
+\u003c/div\u003e
+\u003c/template\u003e
+\u003c/div\u003e
+
+\u003c/div\u003e
+\u003c/slot\u003e
+\u003c/layout\u003e

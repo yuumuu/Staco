@@ -1,0 +1,56 @@
+{
+    "division_id": 2,
+    "name": "Divisi Marketing",
+    "slug": "marketing",
+    "icon": "📢",
+    "image": "https://placehold.co/800x400?text=Divisi+Marketing",
+    "description": "Divisi yang bertanggung jawab atas branding, publikasi, dan hubungan masyarakat. Mengelola media sosial dan strategi komunikasi organisasi.",
+    "color": "purple",
+    "members": [
+        {
+            "member_id": 6,
+            "name": "Rina Wati",
+            "position": "Ketua Divisi",
+            "photo": "https://ui-avatars.com/api/?name=Rina+Wati&background=random",
+            "instagram": "@rinawati"
+        },
+        {
+            "member_id": 7,
+            "name": "Dimas Anggara",
+            "position": "Content Creator",
+            "photo": "https://ui-avatars.com/api/?name=Dimas+Anggara&background=random",
+            "instagram": "@dimasanggara"
+        },
+        {
+            "member_id": 8,
+            "name": "Sarah Putri",
+            "position": "Social Media Specialist",
+            "photo": "https://ui-avatars.com/api/?name=Sarah+Putri&background=random",
+            "instagram": "@sarahputri"
+        }
+    ],
+    "programs": [
+        {
+            "program_id": 4,
+            "title": "Social Media Campaign",
+            "description": "Kampanye rutin di media sosial untuk meningkatkan awareness tentang kegiatan organisasi",
+            "pic": "Sarah Putri",
+            "icon": "📱",
+            "start_date": "2024-01-01",
+            "end_date": "2024-12-31",
+            "status": "berjalan"
+        },
+        {
+            "program_id": 5,
+            "title": "Webinar Digital Marketing",
+            "description": "Seminar online tentang strategi pemasaran digital untuk UMKM",
+            "pic": "Rina Wati",
+            "icon": "📊",
+            "start_date": "2024-05-20",
+            "end_date": "2024-05-20",
+            "status": "rencana"
+        }
+    ],
+    "created_at": "2024-01-15T10:00:00Z",
+    "updated_at": "2024-02-20T15:30:00Z"
+}

@@ -1,0 +1,35 @@
+[
+  {
+    "division_id": 1,
+    "name": "Divisi IT",
+    "slug": "it",
+    "icon": "💻",
+    "image": "/media/divisions/it.jpg",
+    "description_short": "Mengelola teknologi informasi dan sistem digital organisasi",
+    "member_count": 5,
+    "program_count": 3,
+    "color": "blue"
+  },
+  {
+    "division_id": 2,
+    "name": "Divisi Marketing",
+    "slug": "marketing",
+    "icon": "📢",
+    "image": "/media/divisions/marketing.jpg",
+    "description_short": "Mengelola pemasaran, promosi, dan branding organisasi",
+    "member_count": 4,
+    "program_count": 2,
+    "color": "purple"
+  },
+  {
+    "division_id": 3,
+    "name": "Divisi Keuangan",
+    "slug": "keuangan",
+    "icon": "💰",
+    "image": "/media/divisions/keuangan.jpg",
+    "description_short": "Mengelola keuangan dan administrasi organisasi",
+    "member_count": 3,
+    "program_count": 2,
+    "color": "green"
+  }
+]

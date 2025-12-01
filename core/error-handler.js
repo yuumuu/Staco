@@ -271,6 +271,30 @@ window.ErrorHandler = (function () {
 
 // Install global error handlers
 window.addEventListener('error', (event) => {
+  // Ignore "Script error" from external CDN scripts (Alpine.js, etc.)
+  // This is a CORS-related error that doesn't provide useful information
+  // and doesn't affect functionality
+  if (event.message === 'Script error.' && !event.filename) {
+    if (AppConfig.debug) {
+      console.log(
+        '%c[ErrorHandler] Ignoring benign CDN script error',
+        'color: #fbbf24; font-style: italic;'
+      );
+    }
+    return;
+  }
+
+  // Ignore errors from Alpine.js CDN that are benign
+  if (event.filename && event.filename.includes('alpinejs')) {
+    if (AppConfig.debug) {
+      console.log(
+        '%c[ErrorHandler] Ignoring Alpine.js CDN error',
+        'color: #fbbf24; font-style: italic;'
+      );
+    }
+    return;
+  }
+
   ErrorHandler.handle(event.error || new Error(event.message), {
     type: 'global',
     filename: event.filename,

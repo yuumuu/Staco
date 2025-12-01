@@ -11,10 +11,32 @@ window.Router = {
 
   async handleHashChange() {
     let hash = window.location.hash.slice(1) || "/";
-    const [path, query] = hash.split("?");
+    
+    // Detect anchor vs route
+    // #contact → anchor (scroll in current page)
+    // #/about → route (SPA navigation)
+    // #/about#team → route + anchor
+    
+    let path = "/";
+    let anchor = null;
+    
+    if (hash.startsWith("/")) {
+      // Route (with possible anchor)
+      const parts = hash.split("#");
+      path = parts[0];
+      anchor = parts[1] || null;
+    } else if (hash) {
+      // Pure anchor (scroll in current page)
+      anchor = hash;
+      this.scrollToAnchor(anchor);
+      this.updateActiveAnchors(anchor);
+      return; // Don't change route
+    }
+    
+    const [pathOnly, query] = path.split("?");
 
     // Find route
-    let route = this.routes.find((r) => r.path === path);
+    let route = this.routes.find((r) => r.path === pathOnly);
     let params = {};
 
     // Regex Match Support
@@ -24,7 +46,7 @@ window.Router = {
           const regexPath =
             "^" + r.path.replace(/:[a-zA-Z0-9_]+/g, "([^/]+)") + "$";
           const matcher = new RegExp(regexPath);
-          const match = path.match(matcher);
+          const match = pathOnly.match(matcher);
 
           if (match) {
             route = r;
@@ -40,6 +62,10 @@ window.Router = {
       }
     }
 
+    // Store params and path
+    this.params = params;
+    this.currentPath = pathOnly;
+    
     // Update Store Params
     if (window.Store) {
       window.Store.set("params", params);
@@ -67,13 +93,55 @@ window.Router = {
     await Framework.render(route.component, "router-view");
 
     // Update Active Links
-    document.querySelectorAll("[href]").forEach((el) => {
-      if (el.getAttribute("href") === "#" + path) {
-        el.classList.add("active-link");
-      } else {
-        el.classList.remove("active-link");
-      }
+    this.updateActiveLinks(pathOnly);
+    
+    // Scroll to anchor if present
+    if (anchor) {
+      setTimeout(() => this.scrollToAnchor(anchor), 100);
+    }
+    
+    // Emit route changed event
+    window.dispatchEvent(new CustomEvent('route:changed', {
+      detail: { path: pathOnly, params }
+    }));
+  },
+  
+  // Update active route links
+  updateActiveLinks(currentPath) {
+    document.querySelectorAll('[href^="#/"]').forEach((link) => {
+      const href = link.getAttribute('href');
+      const linkPath = href.slice(1).split('#')[0]; // Remove # and anchor
+      
+      // Exact match or partial match for nested routes
+      const isActive = currentPath === linkPath || 
+                       (linkPath !== '/' && currentPath.startsWith(linkPath + '/'));
+      
+      link.classList.toggle('nav-link-active', isActive);
+      
+      // Keep legacy class for backward compatibility
+      link.classList.toggle('active-link', isActive);
     });
+  },
+  
+  // Update active anchor links
+  updateActiveAnchors(currentAnchor) {
+    document.querySelectorAll('[href^="#"]:not([href^="#/"])').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href || href === '#') return;
+      
+      const anchor = href.slice(1);
+      const isActive = anchor === currentAnchor;
+      link.classList.toggle('nav-anchor-active', isActive);
+    });
+  },
+  
+  // Scroll to anchor
+  scrollToAnchor(anchor) {
+    const element = document.getElementById(anchor);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      this.updateActiveAnchors(anchor);
+    }
   },
 
   navigate(path) {

@@ -1,0 +1,80 @@
+{
+    "division_id": 1,
+    "name": "Divisi IT",
+    "slug": "it",
+    "icon": "💻",
+    "image": "https://placehold.co/800x400?text=Divisi+IT",
+    "description": "Divisi yang mengelola teknologi informasi dan sistem digital organisasi. Bertanggung jawab atas pengembangan website, maintenance sistem, dan inovasi teknologi untuk mendukung kegiatan organisasi.",
+    "color": "blue",
+    "members": [
+        {
+            "member_id": 1,
+            "name": "Ahmad Fauzi",
+            "position": "Ketua Divisi",
+            "photo": "https://ui-avatars.com/api/?name=Ahmad+Fauzi&background=random",
+            "instagram": "@ahmadfauzi"
+        },
+        {
+            "member_id": 2,
+            "name": "Siti Nurhaliza",
+            "position": "Wakil Ketua",
+            "photo": "https://ui-avatars.com/api/?name=Siti+Nurhaliza&background=random",
+            "instagram": "@sitinur"
+        },
+        {
+            "member_id": 3,
+            "name": "Budi Santoso",
+            "position": "Web Developer",
+            "photo": "https://ui-avatars.com/api/?name=Budi+Santoso&background=random",
+            "instagram": "@budisant"
+        },
+        {
+            "member_id": 4,
+            "name": "Dewi Lestari",
+            "position": "UI/UX Designer",
+            "photo": "https://ui-avatars.com/api/?name=Dewi+Lestari&background=random",
+            "instagram": "@dewilestari"
+        },
+        {
+            "member_id": 5,
+            "name": "Eko Prasetyo",
+            "position": "System Administrator",
+            "photo": "https://ui-avatars.com/api/?name=Eko+Prasetyo&background=random",
+            "instagram": "@ekopras"
+        }
+    ],
+    "programs": [
+        {
+            "program_id": 1,
+            "title": "Workshop Web Development",
+            "description": "Pelatihan pembuatan website modern menggunakan HTML, CSS, dan JavaScript untuk anggota organisasi",
+            "pic": "Ahmad Fauzi",
+            "icon": "🎓",
+            "start_date": "2024-03-01",
+            "end_date": "2024-03-03",
+            "status": "rencana"
+        },
+        {
+            "program_id": 2,
+            "title": "Hackathon 2024",
+            "description": "Kompetisi coding 24 jam untuk mahasiswa se-Indonesia dengan tema Smart City Solutions",
+            "pic": "Budi Santoso",
+            "icon": "🏆",
+            "start_date": "2024-04-15",
+            "end_date": "2024-04-16",
+            "status": "berjalan"
+        },
+        {
+            "program_id": 3,
+            "title": "Maintenance Sistem",
+            "description": "Pemeliharaan rutin website organisasi dan sistem internal untuk memastikan performa optimal",
+            "pic": "Eko Prasetyo",
+            "icon": "🔧",
+            "start_date": "2024-01-01",
+            "end_date": "2024-12-31",
+            "status": "berjalan"
+        }
+    ],
+    "created_at": "2024-01-15T10:00:00Z",
+    "updated_at": "2024-02-20T15:30:00Z"
+}

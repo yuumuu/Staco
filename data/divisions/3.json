@@ -1,0 +1,56 @@
+{
+    "division_id": 3,
+    "name": "Divisi Keuangan",
+    "slug": "keuangan",
+    "icon": "💰",
+    "image": "https://placehold.co/800x400?text=Divisi+Keuangan",
+    "description": "Divisi yang mengelola arus kas, anggaran, dan pelaporan keuangan organisasi. Memastikan transparansi dan akuntabilitas dana.",
+    "color": "green",
+    "members": [
+        {
+            "member_id": 9,
+            "name": "Bambang Pamungkas",
+            "position": "Ketua Divisi",
+            "photo": "https://ui-avatars.com/api/?name=Bambang+Pamungkas&background=random",
+            "instagram": "@bambangpam"
+        },
+        {
+            "member_id": 10,
+            "name": "Lina Marlina",
+            "position": "Bendahara 1",
+            "photo": "https://ui-avatars.com/api/?name=Lina+Marlina&background=random",
+            "instagram": "@linamarlina"
+        },
+        {
+            "member_id": 11,
+            "name": "Joko Susilo",
+            "position": "Bendahara 2",
+            "photo": "https://ui-avatars.com/api/?name=Joko+Susilo&background=random",
+            "instagram": "@jokosusilo"
+        }
+    ],
+    "programs": [
+        {
+            "program_id": 6,
+            "title": "Laporan Keuangan Bulanan",
+            "description": "Penyusunan dan publikasi laporan keuangan rutin untuk transparansi",
+            "pic": "Lina Marlina",
+            "icon": "📝",
+            "start_date": "2024-01-01",
+            "end_date": "2024-12-31",
+            "status": "berjalan"
+        },
+        {
+            "program_id": 7,
+            "title": "Workshop Literasi Keuangan",
+            "description": "Edukasi tentang pengelolaan keuangan pribadi dan organisasi untuk mahasiswa",
+            "pic": "Bambang Pamungkas",
+            "icon": "💸",
+            "start_date": "2024-06-10",
+            "end_date": "2024-06-10",
+            "status": "rencana"
+        }
+    ],
+    "created_at": "2024-01-15T10:00:00Z",
+    "updated_at": "2024-02-20T15:30:00Z"
+}
