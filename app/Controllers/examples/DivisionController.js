@@ -4,7 +4,7 @@
 BaseController.extend('DivisionController', {
   // List divisions (for homepage)
   list: {
-    dataSource: 'storage/data/divisions/index.json',
+    dataSource: 'storage/data/examples/divisions/index.json',
 
     // Transform data
     transform(divisions) {
@@ -22,7 +22,7 @@ BaseController.extend('DivisionController', {
   detail: {
     // Dynamic dataSource based on params
     dataSource(params) {
-      return `storage/data/divisions/${params.slug}.json`;
+      return `storage/data/examples/divisions/${params.slug}.json`;
     },
 
     // Transform nested data

@@ -20,7 +20,7 @@
       }
 
       try {
-        const data = await Framework.fetchJSON('storage/data/divisions/index.json');
+        const data = await Framework.fetchJSON('storage/data/examples/divisions/index.json');
         this.cache[cacheKey] = data;
         return data;
       } catch (error) {
@@ -46,7 +46,7 @@
       }
 
       try {
-        const data = await Framework.fetchJSON(`storage/data/divisions/${idOrSlug}.json`);
+        const data = await Framework.fetchJSON(`storage/data/examples/divisions/${idOrSlug}.json`);
         this.cache[cacheKey] = data;
         return data;
       } catch (error) {

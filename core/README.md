@@ -1,7 +1,7 @@
-# Core UI (StarterCode)
+# Core UI (Staco)
 
 This folder contains framework-level utilities that are intended to be stable and
-available to all projects using this StarterCode. Keep system-level UI helpers
+available to all projects using this Staco. Keep system-level UI helpers
 here; project-specific customizations belong in `assets/`.
 
 ## Exported API
@@ -15,7 +15,7 @@ here; project-specific customizations belong in `assets/`.
   - `Skeleton.grid(count = 3, columns = 3)` → string (grid of skeleton cards)
   
   **Note:** Skeleton is NOT auto-loaded. You must use it manually in your components.
-  See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for full documentation.
+  See [SKELETON.md](file:///d:/Projects/Staco/docs/SKELETON.md) for full documentation.
 
 - `CoreUI.Cache` — simple localStorage cache with TTL.
 
@@ -62,7 +62,7 @@ Use skeleton in Alpine.js components for better loading UX:
 - Use Skeleton for: data lists, grids, structured content (>500ms load time)
 - Use Loader (spinner) for: quick actions, page navigation, unstructured content
 
-See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for complete guide.
+See [SKELETON.md](file:///d:/Projects/Staco/docs/SKELETON.md) for complete guide.
 
 Cache example:
 
@@ -108,10 +108,10 @@ Or morphdom (CDN):
 <script src="https://unpkg.com/morphdom@2.6.1/dist/morphdom-umd.min.js"></script>
 ```
 ```
-# Core UI (StarterCode)
+# Core UI (Staco)
 
 This folder contains framework-level utilities that are intended to be stable and
-available to all projects using this StarterCode. Keep system-level UI helpers
+available to all projects using this Staco. Keep system-level UI helpers
 here; project-specific customizations belong in `assets/`.
 
 ## Exported API
@@ -125,7 +125,7 @@ here; project-specific customizations belong in `assets/`.
   - `Skeleton.grid(count = 3, columns = 3)` → string (grid of skeleton cards)
   
   **Note:** Skeleton is NOT auto-loaded. You must use it manually in your components.
-  See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for full documentation.
+  See [SKELETON.md](file:///d:/Projects/Staco/docs/SKELETON.md) for full documentation.
 
 - `CoreUI.Cache` — simple localStorage cache with TTL.
 
@@ -172,7 +172,7 @@ Use skeleton in Alpine.js components for better loading UX:
 - Use Skeleton for: data lists, grids, structured content (>500ms load time)
 - Use Loader (spinner) for: quick actions, page navigation, unstructured content
 
-See [SKELETON.md](file:///d:/Projects/StarterCode/docs/SKELETON.md) for complete guide.
+See [SKELETON.md](file:///d:/Projects/Staco/docs/SKELETON.md) for complete guide.
 
 Cache example:
 

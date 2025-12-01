@@ -1,0 +1,241 @@
+<layout name="main">
+    <slot name="header">
+        <div class="container mx-auto px-4">
+            <include src="app/Components/navbar.html"></include>
+        </div>
+    </slot>
+
+    <slot name="content">
+        <!-- Hero -->
+        <div class="bg-gradient-to-r from-blue-600 to-purple-600 text-white py-16">
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="text-5xl font-bold mb-4">Features</h1>
+                <p class="text-xl text-blue-100">Everything you need to build modern SPAs</p>
+            </div>
+        </div>
+
+        <div class="container mx-auto px-4 py-12">
+            <!-- Feature: Zero Build -->
+            <div class="mb-20 aos-fade-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl">🚀</span>
+                    <h2 class="text-4xl font-bold">Zero Build Required</h2>
+                </div>
+                <p class="text-lg text-gray-700 mb-6">
+                    No webpack, no Vite, no build process. Just write HTML, CSS, and JavaScript. Perfect for rapid
+                    prototyping and production applications.
+                </p>
+                <div class="bg-gray-900 text-gray-100 p-6 rounded-lg">
+                    <code class="text-sm">
+# No build step needed!<br>
+# Just start a server and code<br>
+npx serve -l 3000 .<br>
+<br>
+# That's it! Start building immediately.
+                    </code>
+                </div>
+            </div>
+
+            <!-- Feature: MVC Controllers -->
+            <div class="mb-20 aos-fade-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl">🎮</span>
+                    <h2 class="text-4xl font-bold">MVC Controllers</h2>
+                </div>
+                <p class="text-lg text-gray-700 mb-6">
+                    Clean separation of concerns with auto-discovery controllers. Handle data fetching, transformation,
+                    and business logic elegantly with lifecycle hooks.
+                </p>
+                <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
+                    <code class="text-sm whitespace-pre">BaseController.extend('ProductController', {
+    list: {
+        dataSource: 'storage/data/products.json',
+        
+        transform(products) {
+            return products.map(p => ({
+                ...p,
+                inStock: p.quantity > 0,
+                priceFormatted: `$${p.price.toFixed(2)}`
+            }));
+        },
+        
+        afterLoad(products) {
+            console.log(`Loaded ${products.length} products`);
+        }
+    }
+});</code>
+                </div>
+            </div>
+
+            <!-- Feature: Smart Routing -->
+            <div class="mb-20 aos-fade-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl">🗺️</span>
+                    <h2 class="text-4xl font-bold">Smart Routing</h2>
+                </div>
+                <p class="text-lg text-gray-700 mb-6">
+                    Hash-based routing with dynamic parameters, active link detection, and smooth anchor scrolling.
+                    Supports nested routes and route parameters.
+                </p>
+                <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
+                    <code class="text-sm whitespace-pre">const routes = [
+    { path: '/', component: 'app/Views/home.html' },
+    { path: '/products/:id', component: 'app/Views/product-detail.html' },
+    { path: '/blog/:category/:slug', component: 'app/Views/blog-post.html' }
+];
+
+// Navigate programmatically
+Router.navigate('/products/123');
+
+// Access params in controller
+dataSource(params) {
+    return `storage/data/products/${params.id}.json`;
+}</code>
+                </div>
+            </div>
+
+            <!-- Feature: Component System -->
+            <div class="mb-20 aos-fade-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl">🎨</span>
+                    <h2 class="text-4xl font-bold">Component System</h2>
+                </div>
+                <p class="text-lg text-gray-700 mb-6">
+                    Reusable HTML components with slots and includes. Build complex UIs from simple, composable pieces
+                    with named slots for maximum flexibility.
+                </p>
+                <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
+                    <code class="text-sm whitespace-pre">&lt;!-- Define component: app/Components/card.html --&gt;
+&lt;div class="card"&gt;
+    &lt;slot name="header"&gt;&lt;/slot&gt;
+    &lt;slot name="content"&gt;&lt;/slot&gt;
+    &lt;slot name="footer"&gt;&lt;/slot&gt;
+&lt;/div&gt;
+
+&lt;!-- Use component --&gt;
+&lt;include src="app/Components/card.html"&gt;
+    &lt;slot name="header"&gt;&lt;h2&gt;Title&lt;/h2&gt;&lt;/slot&gt;
+    &lt;slot name="content"&gt;&lt;p&gt;Content here&lt;/p&gt;&lt;/slot&gt;
+    &lt;slot name="footer"&gt;&lt;button&gt;Action&lt;/button&gt;&lt;/slot&gt;
+&lt;/include&gt;</code>
+                </div>
+            </div>
+
+            <!-- Feature: State Management -->
+            <div class="mb-20 aos-fade-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl">💾</span>
+                    <h2 class="text-4xl font-bold">State Management</h2>
+                </div>
+                <p class="text-lg text-gray-700 mb-6">
+                    Global store with Alpine.js integration. Manage app-wide state that persists across navigation with
+                    reactive updates and subscriptions.
+                </p>
+                <div class="bg-gray-900 text-gray-100 p-6 rounded-lg overflow-x-auto">
+                    <code class="text-sm whitespace-pre">// Set global state
+Store.set('user', { name: 'John', role: 'admin' });
+
+// Get state
+const user = Store.get('user');
+
+// Subscribe to changes
+Store.subscribe('user', (newUser) => {
+    console.log('User updated:', newUser);
+});
+
+// Use in Alpine templates
+&lt;div x-data&gt;
+    &lt;p x-text="$store.global.user?.name"&gt;&lt;/p&gt;
+&lt;/div&gt;</code>
+                </div>
+            </div>
+
+            <!-- Feature: Performance -->
+            <div class="mb-20 aos-fade-up">
+                <div class="flex items-center gap-4 mb-6">
+                    <span class="text-6xl">⚡</span>
+                    <h2 class="text-4xl font-bold">Performance</h2>
+                </div>
+                <p class="text-lg text-gray-700 mb-6">
+                    Morphdom for efficient DOM updates, built-in caching, lazy loading controllers, and XSS prevention
+                    with DOMPurify. Fast and secure by default.
+                </p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-blue-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Morphdom Updates</h3>
+                        <p class="text-gray-700">Efficient DOM diffing preserves Alpine state and minimizes repaints
+                            during navigation.</p>
+                    </div>
+                    <div class="bg-purple-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Built-in Caching</h3>
+                        <p class="text-gray-700">Automatic caching of API responses with configurable TTL for optimal
+                            performance.</p>
+                    </div>
+                    <div class="bg-pink-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">Lazy Loading</h3>
+                        <p class="text-gray-700">Controllers are loaded on-demand, reducing initial bundle size and
+                            improving load times.</p>
+                    </div>
+                    <div class="bg-indigo-50 p-6 rounded-lg">
+                        <h3 class="font-bold text-lg mb-2">XSS Prevention</h3>
+                        <p class="text-gray-700">Automatic data sanitization with DOMPurify protects against cross-site
+                            scripting attacks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Features -->
+            <div class="mb-20 aos-fade-up">
+                <h2 class="text-4xl font-bold mb-8">More Features</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-xl mb-3">📦 Plugins</h3>
+                        <p class="text-gray-600">Extend functionality with custom plugins. Toast notifications, loaders,
+                            and more included.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-xl mb-3">🎭 Layouts</h3>
+                        <p class="text-gray-600">Flexible layout system with named slots for consistent page structure
+                            across your app.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-xl mb-3">🔍 Error Handling</h3>
+                        <p class="text-gray-600">Comprehensive error handling with dev/production modes and beautiful
+                            error pages.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-xl mb-3">🎬 Animations</h3>
+                        <p class="text-gray-600">Built-in scroll animations with IntersectionObserver for smooth reveal
+                            effects.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-xl mb-3">💀 Skeleton Loaders</h3>
+                        <p class="text-gray-600">Pre-built skeleton screens for better perceived performance during data
+                            loading.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md">
+                        <h3 class="font-bold text-xl mb-3">📱 Responsive</h3>
+                        <p class="text-gray-600">TailwindCSS integration for rapid, responsive UI development out of the
+                            box.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA -->
+            <div class="text-center py-12 bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl aos-fade-up">
+                <h2 class="text-3xl font-bold mb-4">Ready to Get Started?</h2>
+                <p class="text-gray-600 mb-6">Explore the full documentation and start building today.</p>
+                <div class="flex gap-4 justify-center">
+                    <a href="#/docs"
+                        class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Read Documentation
+                    </a>
+                    <a href="https://github.com/yuumuu/Staco" target="_blank"
+                        class="bg-gray-800 text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-900 transition">
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </slot>
+</layout>
