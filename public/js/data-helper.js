@@ -20,7 +20,7 @@
       }
 
       try {
-        const data = await Framework.fetchJSON('data/divisions/index.json');
+        const data = await Framework.fetchJSON('storage/data/divisions/index.json');
         this.cache[cacheKey] = data;
         return data;
       } catch (error) {
@@ -35,22 +35,10 @@
      * @returns {Promise<Object>} Division detail dengan members & programs
      */
     async getDivision(idOrSlug) {
-      // Cek apakah input adalah slug atau ID
-      const isSlug = typeof idOrSlug === 'string' && isNaN(idOrSlug);
+      // Since we renamed files to match slugs, we can just use the slug/ID directly
+      // But if it's an ID (number), we might need to look it up if we want to support IDs.
+      // For now, let's assume we pass slugs or filenames match.
       
-      if (isSlug) {
-        // Jika slug, cari ID dari index dulu
-        const divisions = await this.getDivisions();
-        const division = divisions.find(d => d.slug === idOrSlug);
-        
-        if (!division) {
-          console.error(`Division with slug "${idOrSlug}" not found`);
-          return null;
-        }
-        
-        idOrSlug = division.division_id;
-      }
-
       const cacheKey = `division_${idOrSlug}`;
       
       if (this.cache[cacheKey]) {
@@ -58,7 +46,7 @@
       }
 
       try {
-        const data = await Framework.fetchJSON(`data/divisions/${idOrSlug}.json`);
+        const data = await Framework.fetchJSON(`storage/data/divisions/${idOrSlug}.json`);
         this.cache[cacheKey] = data;
         return data;
       } catch (error) {

@@ -1,3 +1,5 @@
+// Routes loaded from config/routes.js
+
 // Initialize App
 document.addEventListener('alpine:init', () => {
     Alpine.data('App', () => ({

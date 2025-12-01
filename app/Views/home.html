@@ -1,0 +1,229 @@
+<layout name="main">
+    <slot name="header">
+        <div class="container mx-auto px-4">
+            <include src="app/Components/navbar.html"></include>
+        </div>
+    </slot>
+
+    <slot name="content">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-bold text-gray-900 mb-4">Welcome to the Framework</h1>
+                <p class="text-lg text-gray-600">A lightweight, static SPA framework.</p>
+            </div>
+
+            <!-- Legacy Way -->
+            <div x-data="{ 
+                users: [],
+                loading: true,
+                async loadUsers() {
+                    this.loading = true;
+                    Framework.usePlugin('loader', true);
+                    // Simulate network delay to show skeleton
+                    await new Promise(resolve => setTimeout(resolve, 500));
+                    const data = await Framework.fetchJSON('storage/data/users.json');
+                    this.users = data;
+                    this.loading = false;
+                    setTimeout(() => Framework.usePlugin('loader', false), 500); 
+                    Framework.usePlugin('toast', 'Legacy: Users loaded!');
+                }
+            }" x-init="loadUsers()" class="mb-12 border-b pb-12">
+                <h2 class="text-2xl font-bold mb-4 text-gray-400">Legacy Data Loading (Manual)</h2>
+
+                <!-- Skeleton Loading State -->
+                <template x-if="loading">
+                    <div x-html="Skeleton.grid(3, 3)"></div>
+                </template>
+
+                <!-- Actual Content -->
+                <template x-if="!loading">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <template x-for="user in users" :key="user.id">
+                            <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                                <h3 class="text-xl font-semibold mb-2" x-text="user.name"></h3>
+                                <p class="text-gray-500" x-text="user.role"></p>
+                                <div class="mt-4">
+                                    <span class="inline-block bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full"
+                                        x-text="user.status"></span>
+                                </div>
+                            </div>
+                        </template>
+                    </div>
+                </template>
+            </div>
+
+            <!-- Modern Way -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-bold mb-4 text-blue-600">Modern Data Loading (Collection Helper)</h2>
+                <p class="mb-4 text-gray-600">Uses <code>collection()</code> helper and <code>x-init</code> for side
+                    effects.</p>
+
+                <div x-data="collection('storage/data/users.json')" x-init="$watch('loading', val => {
+                        if (val) Framework.usePlugin('loader', true);
+                        else {
+                            Framework.usePlugin('loader', false);
+                            Framework.usePlugin('toast', 'Modern: Users loaded!', 'success');
+                        }
+                     })">
+
+                    <!-- Skeleton Loading State -->
+                    <template x-if="loading">
+                        <div x-html="Skeleton.grid(3, 3)"></div>
+                    </template>
+
+                    <!-- Actual Content -->
+                    <template x-if="!loading">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <template x-for="user in items" :key="user.id">
+                                <div
+                                    class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition duration-300 border-2 border-blue-100">
+                                    <h3 class="text-xl font-semibold mb-2" x-text="user.name"></h3>
+                                    <p class="text-gray-500" x-text="user.role"></p>
+                                    <div class="mt-4">
+                                        <span class="inline-block px-2 py-1 rounded-full text-xs" :class="{
+                                                'bg-green-100 text-green-800': user.status === 'Active',
+                                                'bg-yellow-100 text-yellow-800': user.status === 'Away',
+                                                'bg-gray-100 text-gray-800': user.status === 'Offline'
+                                            }" x-text="user.status"></span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Scroll Animation Demo -->
+            <div class="mt-12 p-6 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100">
+                <h2 class="text-2xl font-bold mb-6 aos-fade-up">Scroll Animation Demo</h2>
+                <p class="mb-6 text-gray-600 aos-fade-up">Scroll down to see smooth reveal animations on elements.</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white p-6 rounded-lg shadow-md aos-fade-left">
+                        <div class="text-3xl mb-3">⚡</div>
+                        <h3 class="text-lg font-semibold mb-2">Fast Loading</h3>
+                        <p class="text-sm text-gray-600">Morph-based updates preserve state and reduce repaints.</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md aos-zoom">
+                        <div class="text-3xl mb-3">🎨</div>
+                        <h3 class="text-lg font-semibold mb-2">Smooth Animations</h3>
+                        <p class="text-sm text-gray-600">IntersectionObserver-based reveal for lightweight performance.
+                        </p>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-md aos-fade-right">
+                        <div class="text-3xl mb-3">🔄</div>
+                        <h3 class="text-lg font-semibold mb-2">Smart Routing</h3>
+                        <p class="text-sm text-gray-600">Hybrid routing with automatic morph for seamless navigation.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Morph Demo Section -->
+            <div class="mt-12 p-6 bg-green-50 rounded-xl border border-green-100">
+                <h2 class="text-2xl font-bold mb-4 aos-fade-up">Morphdom Routing Demo</h2>
+                <p class="mb-6 text-gray-600 aos-fade-up">
+                    Navigate to <a href="#/about" class="text-green-600 hover:text-green-800 font-semibold">About</a>
+                    and back.
+                    Thanks to morphdom, the transition is smooth and Alpine component state is preserved!
+                </p>
+                <div class="bg-white p-4 rounded-lg border border-green-200 aos-zoom">
+                    <p class="text-sm text-gray-700">
+                        <strong>How it works:</strong> CoreUI.morph() intelligently reconciles the new page HTML into
+                        the DOM using morphdom.
+                        This means Alpine.js components remain in memory, reducing flickering and giving a native app
+                        feel.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Divisions Section -->
+            <div class="mt-12">
+                <h2 class="text-3xl font-bold mb-2 text-center aos-fade-up">Divisi Kami</h2>
+                <p class="text-center text-gray-600 mb-8 aos-fade-up">Kenali divisi-divisi yang ada di organisasi kami
+                </p>
+
+                <div x-data="{ 
+                        divisions: [], 
+                        loading: true,
+                        async loadDivisions() {
+                            this.loading = true;
+                            try {
+                                this.divisions = await DataHelper.getDivisions();
+                            } catch (e) {
+                                console.error('Failed to load divisions', e);
+                            } finally {
+                                this.loading = false;
+                            }
+                        }
+                     }" x-init="loadDivisions()">
+
+                    <!-- Loading state -->
+                    <template x-if="loading">
+                        <div class="text-center py-8">
+                            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                        </div>
+                    </template>
+
+                    <!-- Division cards -->
+                    <template x-if="!loading">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <template x-for="div in divisions" :key="div.division_id">
+                                <a :href="`#/divisions/${div.slug}`"
+                                    class="block bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group aos-fade-up">
+
+                                    <!-- Icon header -->
+                                    <div
+                                        class="h-32 flex items-center justify-center text-6xl bg-gradient-to-br from-blue-50 to-purple-50">
+                                        <span x-text="div.icon"></span>
+                                    </div>
+
+                                    <!-- Content -->
+                                    <div class="p-6">
+                                        <h3 class="text-xl font-bold mb-2 group-hover:text-blue-600 transition"
+                                            x-text="div.name"></h3>
+                                        <p class="text-gray-600 text-sm mb-4 line-clamp-2"
+                                            x-text="div.description_short"></p>
+
+                                        <!-- Stats -->
+                                        <div class="flex items-center gap-4 text-sm text-gray-500">
+                                            <span>
+                                                <span class="font-semibold" x-text="div.member_count"></span>
+                                                Anggota
+                                            </span>
+                                            <span>•</span>
+                                            <span>
+                                                <span class="font-semibold" x-text="div.program_count"></span>
+                                                Program
+                                            </span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </template>
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <!-- Features Demo -->
+            <div class="mt-12 p-6 bg-blue-50 rounded-xl border border-blue-100">
+                <h2 class="text-2xl font-bold mb-4">Features Demo</h2>
+                <ul class="list-disc list-inside space-y-2 text-gray-700">
+                    <li><strong>Layouts:</strong> This page uses the 'main' layout.</li>
+                    <li><strong>Includes:</strong> The navbar above is included dynamically.</li>
+                    <li><strong>Template Engine:</strong> The user list uses <code>{% for %}</code> syntax (Legacy) and
+                        <code>x-for</code> (Modern).</li>
+                    <li><strong>Store:</strong> Current Theme: <span x-text="$store.global.theme"
+                            class="font-bold uppercase"></span></li>
+                    <li><strong>Morph + Scroll:</strong> Page uses morphdom for smooth updates and IntersectionObserver
+                        for scroll animations.</li>
+                </ul>
+                <button @click="Framework.usePlugin('toast', 'Hello from Button!', 'info')"
+                    class="mt-6 px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                    Test Toast Plugin
+                </button>
+            </div>
+
+        </div>
+    </slot>
+</layout>

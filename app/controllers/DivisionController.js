@@ -4,7 +4,7 @@
 BaseController.extend('DivisionController', {
   // List divisions (for homepage)
   list: {
-    dataSource: 'data/divisions/index.json',
+    dataSource: 'storage/data/divisions/index.json',
 
     // Transform data
     transform(divisions) {
@@ -22,7 +22,7 @@ BaseController.extend('DivisionController', {
   detail: {
     // Dynamic dataSource based on params
     dataSource(params) {
-      return `data/divisions/${params.slug}.json`;
+      return `storage/data/divisions/${params.slug}.json`;
     },
 
     // Transform nested data
@@ -34,7 +34,7 @@ BaseController.extend('DivisionController', {
         members:
           division.members?.map((member) => ({
             ...member,
-            photoUrl: member.photo || '/media/members/default.jpg',
+            photoUrl: member.photo || '/storage/media/members/default.jpg',
             instagramUrl: `https://instagram.com/${member.instagram.replace(
               '@',
               ''

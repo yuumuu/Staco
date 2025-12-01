@@ -152,7 +152,7 @@ window.Framework = {
       }
 
       // Load Layout File
-      let layoutHtml = await this.fetchHTML(`app/layouts/${layoutName}.html`);
+      let layoutHtml = await this.fetchHTML(`app/Layouts/${layoutName}.html`);
 
       // Inject slots into layout
       // Layout should have <slot name="xyz"></slot> placeholders (not the custom tag, but maybe a marker?)
