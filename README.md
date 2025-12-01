@@ -1,4 +1,6 @@
-# StarterCode - Advanced Lightweight SPA Framework
+# Staco - Advanced Lightweight SPA Framework
+
+> **🌐 Live Demo:** [yuumuu.github.io/Staco](https://yuumuu.github.io/Staco)
 
 ## 📖 Quick Access
 
@@ -97,7 +99,7 @@ const routes = [
 
 ### Project Structure
 ```
-StarterCode/
+Staco/
 ├── index.html              # Entry point
 ├── config.js               # App configuration (dev/prod modes)
 ├── main.js                 # App initialization
