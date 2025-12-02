@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const readline = require('readline');
+const { execSync } = require('child_process');
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -30,6 +31,7 @@ function showHelp() {
     log("Usage: node staco <command> [options]\n");
     log("Commands:");
     log("  rename <new-name>            Rename the project");
+    log("  setup-git                    Initialize a fresh git repository");
     log("  generate controller <name>   Create a new controller");
     log("  generate view <name>         Create a new view");
     log("  generate component <name>    Create a new component");
@@ -56,6 +58,47 @@ function capitalize(str) {
 }
 
 // --- Commands ---
+
+function setupGit() {
+    const root = getProjectRoot();
+    const gitDir = path.join(root, '.git');
+
+    log("⚠️  WARNING: This will delete the existing git history and start fresh.", COLORS.yellow);
+    log("Are you sure you want to continue? (y/n)", COLORS.cyan);
+
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    rl.question('> ', (answer) => {
+        rl.close();
+        if (answer.toLowerCase() !== 'y') {
+            log("Operation cancelled.", COLORS.gray);
+            return;
+        }
+
+        log("\nSetting up fresh git repository...", COLORS.cyan);
+
+        try {
+            // 1. Remove existing .git folder
+            if (fs.existsSync(gitDir)) {
+                log("Removing existing .git directory...", COLORS.gray);
+                fs.rmSync(gitDir, { recursive: true, force: true });
+            }
+
+            // 2. Initialize new git repo
+            log("Initializing new git repository...", COLORS.gray);
+            execSync('git init', { cwd: root, stdio: 'inherit' });
+
+            log("\n✓ Git repository initialized successfully!", COLORS.green);
+            log("You can now run: git add . && git commit -m 'Initial commit'", COLORS.cyan);
+
+        } catch (err) {
+            error(`Failed to setup git: ${err.message}`);
+        }
+    });
+}
 
 async function renameProject(newName) {
     if (!newName) {
@@ -202,6 +245,9 @@ function generateComponent(name) {
 switch (command) {
     case 'rename':
         renameProject(args[1]);
+        break;
+    case 'setup-git':
+        setupGit();
         break;
     case 'generate':
     case 'g':

@@ -66,6 +66,12 @@ node staco generate component card
 ```
 
 
+#### 3. Setup Repository
+Reset the git history to start fresh (removes existing `.git` folder and runs `git init`).
+```bash
+node staco setup-git
+```
+
 ## Core Concepts
 
 ### 1. The `App` Object
