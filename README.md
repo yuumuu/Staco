@@ -4,7 +4,7 @@
 
 ## What is Staco?
 
-Modern, lightweight SPA framework with zero build step. Built with HTML, TailwindCSS, and Alpine.js for rapid development and production-ready applications.
+Modern, lightweight SPA framework with **zero build step**. Built with HTML, TailwindCSS, and Alpine.js for rapid development and production-ready applications.
 
 ## Quick Start
 
@@ -21,44 +21,117 @@ npx serve -l 3000 .
 
 # Option 2: Python
 python -m http.server 3000
-
-# Option 3: VS Code Live Server
-# Right-click index.html → Open with Live Server
 ```
 
 ### 3. Start Building!
 Open `http://localhost:3000` and you're ready to code.
 
-## Key Features
+## Core Concepts
 
-- 🚀 **Zero Build** - No webpack, no npm scripts, just pure browser-based development
-- 🎮 **MVC Controllers** - Clean separation of concerns with auto-discovery and lazy loading
-- 🗺️ **Smart Routing** - Dynamic routes with parameters and active link detection
-- 🎨 **Component System** - Reusable HTML components with slots and includes
-- 💾 **State Management** - Global store with Alpine.js integration
-- ⚡ **Performance** - Morphdom updates, caching, and XSS prevention built-in
+### 1. The `App` Object
+Staco uses a global `App` object (alias for `Framework`) to handle core functionality.
 
-## Documentation
+```javascript
+// Fetch Data
+const data = await App.fetchJSON('data.json');
 
-📚 **Full Documentation:** Visit `/docs` in the app for interactive, comprehensive documentation covering:
-- Getting Started Guide
-- Routing System
-- Controller Pattern
-- Component System
-- State Management
-- Best Practices
-- Complete Examples
+// Render Views
+await App.render('app/Views/page.html', 'router-view');
 
-## Learning Resources
+// Use Plugins
+App.usePlugin('toast', 'Hello World!');
+```
 
-💡 **Example Implementations:** Check the `examples/` folders to learn by example:
+### 2. Smart Routing
+Routes are defined in `config/routes.js`. Staco supports hash-based routing with dynamic parameters.
 
-- **Controllers**: `app/Controllers/examples/` - MVC controller patterns
-- **Views**: `app/Views/examples/` - Page templates and layouts
-- **Data**: `storage/data/examples/` - Sample data structures
-- **Helpers**: `public/js/examples/` - Utility functions
+```javascript
+// config/routes.js
+const routes = [
+    { path: '/', component: 'app/Views/home.html' },
+    { path: '/users/:id', component: 'app/Views/user-detail.html' }
+];
+```
 
-**Delete all `examples/` folders when you're ready to start fresh!**
+### 3. MVC Controllers
+Controllers in `app/Controllers/` are auto-discovered. No manual import needed.
+
+```javascript
+// app/Controllers/UserController.js
+window.UserController = {
+    async list() {
+        return {
+            users: await App.fetchJSON('api/users.json')
+        };
+    }
+};
+```
+
+### 4. Views & Components
+Build UI using HTML components with slots and props.
+
+**Layouts:**
+```html
+<!-- app/Views/home.html -->
+<layout name="main">
+    <slot name="content">
+        <h1>Welcome</h1>
+    </slot>
+</layout>
+```
+
+**Components:**
+```html
+<include src="app/Components/card.html" title="My Card">
+    <p>Card content</p>
+</include>
+```
+
+## New Features 🚀
+
+### 🔌 Centralized Plugin System
+Staco now has a modular plugin system located in `app/Plugins/`.
+
+**Available Plugins:**
+- **Toast**: `App.usePlugin('toast', 'Message', 'success|error|info')`
+- **Loader**: `App.usePlugin('loader', true|false)`
+- **Modal**: `App.usePlugin('modal', { title, content, onConfirm })`
+- **Notification**: `App.usePlugin('notification', { message, type })`
+
+**Creating Plugins:**
+Create a file in `app/Plugins/` and register it in `app/Plugins/index.js`.
+
+### 🏷️ Custom Page Titles
+Set browser tab titles directly from your Views.
+
+**Method 1: HTML Comment (Recommended)**
+```html
+<!-- title: Dashboard - My App -->
+<layout name="main">...</layout>
+```
+
+**Method 2: Meta Tag**
+```html
+<meta name="page-title" content="Dashboard">
+```
+
+## Syntax Reference
+
+### HTML Directives
+- `<include src="...">`: Include component
+- `<layout name="...">`: Use layout
+- `<slot name="...">`: Define slot content
+
+### Alpine.js Integration
+Staco is built on Alpine.js. Use all standard directives:
+- `x-data`: Define state
+- `x-text`: Bind text
+- `x-if`: Conditional rendering
+- `x-for`: Loops
+- `x-model`: Two-way binding
+
+### TailwindCSS
+Full TailwindCSS support via CDN (or local build if configured). Use utility classes directly in your HTML.
 
 ## Project Structure
 
@@ -66,76 +139,15 @@ Open `http://localhost:3000` and you're ready to code.
 Staco/
 ├── app/
 │   ├── Components/      # Reusable UI components
-│   │   └── examples/    # Example components (delete when ready)
 │   ├── Controllers/     # MVC controllers
-│   │   └── examples/    # Example controllers (delete when ready)
 │   ├── Layouts/         # Page layouts
+│   ├── Plugins/         # System plugins (NEW)
 │   └── Views/           # Page views
-│       └── examples/    # Example views (delete when ready)
-├── core/System/         # Framework core (don't modify)
-│   ├── Controller.js    # Controller system
-│   ├── Engine.js        # Template engine
-│   ├── Router.js        # Hash router
-│   ├── Store.js         # State management
-│   ├── UI.js            # UI utilities
-│   └── ErrorHandler.js  # Error handling
-├── public/              # Static assets
-│   ├── css/             # Stylesheets
-│   ├── js/              # JavaScript files
-│   │   └── examples/    # Example helpers (delete when ready)
-│   └── media/           # Images, videos
+├── config/              # App configuration & routes
+├── core/System/         # Framework core (Engine, Router, Store)
+├── public/              # Static assets (css, js, media)
 └── storage/data/        # JSON data files
-    └── examples/        # Example data (delete when ready)
 ```
-
-## For Developers
-
-After cloning Staco:
-
-1. ✅ **You have a clean, production-ready template**
-   - Modern landing page
-   - Features showcase
-   - Interactive documentation
-   - Clean routing and navigation
-
-2. ✅ **Learn from examples**
-   - Study `app/*/examples/` folders
-   - See real implementations
-   - Copy useful patterns
-
-3. ✅ **Start building**
-   - Delete all `examples/` folders when ready
-   - Create controllers in `app/Controllers/`
-   - Create views in `app/Views/`
-   - Add routes in `config/routes.js`
-
-4. ✅ **Deploy**
-   - No build step needed
-   - Just upload files to any static host
-   - Works on GitHub Pages, Netlify, Vercel, etc.
-
-## Example Integration
-
-To use the division example in your app:
-
-1. **Uncomment routes** in `config/routes.js`:
-```javascript
-{ path: '/divisions', component: 'app/Views/examples/divisions/index.html' },
-{ path: '/divisions/:slug', component: 'app/Views/examples/divisions/detail.html' }
-```
-
-2. **Uncomment navbar link** in `app/Components/navbar.html`:
-```html
-<a href="#/divisions" class="nav-link">Examples</a>
-```
-
-
-## Why Staco?
-
-- **🎯 Perfect for Prototyping** - No build step means instant feedback
-- **🏗️ Production Ready** - Built-in security, performance, and error handling
-- **📚 Easy to Learn** - HTML-first approach, minimal JavaScript required
-- **🔧 Highly Extensible** - Plugin system and flexible architecture
 
 ## Contributing
 
