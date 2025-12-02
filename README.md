@@ -133,6 +133,17 @@ Build UI using HTML components with slots and props.
 </include>
 ```
 
+### 5. Fetching External Data
+You can fetch data from any external API using `App.fetchJSON`.
+
+```javascript
+// Fetch from external API
+const users = await App.fetchJSON('https://jsonplaceholder.typicode.com/users');
+
+// Note: Ensure the external API supports CORS (Cross-Origin Resource Sharing)
+// if you are calling it from a browser.
+```
+
 ## New Features 🚀
 
 ### 🔌 Centralized Plugin System
