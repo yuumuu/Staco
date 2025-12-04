@@ -102,6 +102,11 @@ window.Router = {
     // Update Active Links
     this.updateActiveLinks(pathOnly);
     
+    // Reset scroll position to top ketika navigasi halaman baru (kecuali ada anchor)
+    if (!anchor) {
+      window.scrollTo(0, 0);
+    }
+    
     // Scroll to anchor if present
     if (anchor) {
       setTimeout(() => this.scrollToAnchor(anchor), 100);
